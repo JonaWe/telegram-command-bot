@@ -3,10 +3,34 @@ dotenv.config();
 
 import SlimBot from 'slimbot';
 
-const slimBot = new SlimBot(process.env.TELEGRAM_BOT_API_TOKEN.toString());
+class TBot {
+  constructor(...args) {
+    this.slimbot = new SlimBot(...args);
+    this.commands = [];
+  }
 
-slimBot.on('message', (message) => {
-  slimBot.sendMessage(message.chat.id, 'Hey');
-});
+  updateCommands() {
+    this.slimbot.on('message', (message) => {
+      this.commands.forEach(({ name, callback }) => {
+        if (new RegExp(`^\/${name}\ `).test(message.text)) {
+          const params = message.text.replace(new RegExp(`^\/${name}\ `), '');
+          const parsedParams = params.split(/\s+/);
+          callback(...parsedParams);
+        }
+      });
+    });
+  }
 
-slimBot.startPolling();
+  addCommand(name, callback) {
+    this.commands.push({ name, callback });
+    this.updateCommands();
+  }
+
+  run() {
+    this.slimbot.startPolling();
+  }
+}
+
+const bot = new TBot(process.env.TELEGRAM_BOT_API_TOKEN);
+bot.addCommand('test', (name, age) => console.log(name, age));
+bot.run();
