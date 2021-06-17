@@ -14,7 +14,7 @@ export class TBot extends TelegramBot {
   }
 
   private addEventListeners() {
-    super.on(
+    this.on(
       'message',
       (message: TelegramBot.Message, metadata: TelegramBot.Metadata) =>
         this.onMessage(message, metadata)
@@ -39,19 +39,21 @@ export class TBot extends TelegramBot {
   public addCommand(
     command: string,
     description: string,
-    callback: (context: Context, ...params: string[]) => void
+    callback: CommandCallback
   ) {
     this.commands.push({ command, callback, description });
   }
 
   public registerCommands() {
-    return super.setMyCommands(this.commands);
+    return this.setMyCommands(this.commands);
   }
 }
 
 export interface BotActionCommand extends TelegramBot.BotCommand {
-  callback: (context: Context, ...params: string[]) => void;
+  callback: CommandCallback;
 }
+
+export type CommandCallback = (context: Context, ...params: string[]) => void;
 
 export class Context {
   private bot: TBot;

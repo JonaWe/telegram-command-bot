@@ -1,0 +1,7 @@
+{
+  "name": "Telegram Command Bot",
+  "plugin": "none",
+  "theme": "./node_modules/typedoc-darker-theme/bin/default",
+  "readme": "none",
+  "out": "docs"
+}

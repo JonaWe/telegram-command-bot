@@ -1,23 +1,24 @@
 :root {
-  --color-background: #fdfdfd;
-  --color-text: #222;
-  --color-text-aside: #707070;
+  --color-background: #1e1e1e;
+  --color-text: #ececec;
+  --color-text-aside: #585858;
   --color-link: #4da6ff;
-  --color-menu-divider: #eee;
-  --color-menu-divider-focus: #000;
-  --color-menu-label: #707070;
-  --color-panel: #fff;
-  --color-panel-divider: #eee;
-  --color-comment-tag: #707070;
-  --color-comment-tag-text: #fff;
-  --color-code-background: rgba(0, 0, 0, 0.04);
-  --color-ts: #9600ff;
-  --color-ts-interface: #647f1b;
-  --color-ts-enum: #937210;
-  --color-ts-class: #0672de;
-  --color-ts-private: #707070;
-  --color-toolbar: #fff;
-  --color-toolbar-text: #333;
+  --color-menu-divider: #e6e6e6;
+  --color-menu-divider-focus: #fff;
+  --color-menu-label: #5f5f5f;
+  --color-panel: #171717;
+  --color-panel-divider: #414141;
+  --color-sources: #ababab;
+  --color-comment-tag: #282828;
+  --color-comment-tag-text: #e6e6e6;
+  --color-code-background: #151515;
+  --color-ts: #be60ff;
+  --color-ts-interface: #c9ff39;
+  --color-ts-enum: #ffbf00;
+  --color-ts-class: #4da6ff;
+  --color-ts-private: #808080;
+  --toolbar-color: #1e1e1e;
+  --toolbar-text-color: #d0d0d0;
 }
 
 /*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -1762,10 +1763,10 @@ html.default.has-menu .col-content {
 .tsd-breadcrumb {
   margin: 0;
   padding: 0;
-  color: var(--color-text-aside);
+  color: var(--toolbar-text-color);
 }
 .tsd-breadcrumb a {
-  color: var(--color-text-aside);
+  color: var(--toolbar-text-color);
   text-decoration: none;
 }
 .tsd-breadcrumb a:hover {
@@ -1778,58 +1779,6 @@ html.default.has-menu .col-content {
   content: " / ";
 }
 
-html.minimal .container {
-  margin: 0;
-}
-html.minimal .container-main {
-  padding-top: 50px;
-  padding-bottom: 0;
-}
-html.minimal .content-wrap {
-  padding-left: 300px;
-}
-html.minimal .tsd-navigation {
-  position: fixed !important;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  box-sizing: border-box;
-  z-index: 1;
-  left: 0;
-  top: 40px;
-  bottom: 0;
-  width: 300px;
-  padding: 20px;
-  margin: 0;
-}
-html.minimal .tsd-member .tsd-member {
-  margin-left: 0;
-}
-html.minimal .tsd-page-toolbar {
-  position: fixed;
-  z-index: 2;
-}
-html.minimal #tsd-filter .tsd-filter-group {
-  right: 0;
-  transform: none;
-}
-html.minimal footer {
-  background-color: transparent;
-}
-html.minimal footer .container {
-  padding: 0;
-}
-html.minimal .tsd-generator {
-  padding: 0;
-}
-@media (max-width: 900px) {
-  html.minimal .tsd-navigation {
-    display: none;
-  }
-  html.minimal .content-wrap {
-    padding-left: 0;
-  }
-}
-
 dl.tsd-comment-tags {
   overflow: hidden;
 }
@@ -1838,8 +1787,8 @@ dl.tsd-comment-tags dt {
   padding: 1px 5px;
   margin: 0 10px 0 0;
   border-radius: 4px;
-  border: 1px solid var(--color-comment-tag);
-  color: var(--color-comment-tag);
+  border: 1px solid var(--color-menu-label);
+  color: var(--color-comment-tag-text);
   font-size: 0.8em;
   font-weight: normal;
 }
@@ -2241,11 +2190,11 @@ footer .tsd-legend {
   border: 1px solid #ddd;
 }
 .tsd-panel table tr {
-  background-color: #fff;
+  background-color: var(--color-background);
   border-top: 1px solid #ccc;
 }
 .tsd-panel table tr:nth-child(2n) {
-  background-color: #f8f8f8;
+  background-color: var(--color-background);
 }
 
 .tsd-panel-group {
@@ -2314,7 +2263,7 @@ footer .tsd-legend {
 }
 #tsd-search .results li.current,
 #tsd-search .results li:hover {
-  background-color: var(--color-panel-divider);
+  background-color: var(--color-comment-tag);
 }
 #tsd-search .results a {
   display: block;
@@ -2323,11 +2272,11 @@ footer .tsd-legend {
   top: 10px;
 }
 #tsd-search .results span.parent {
-  color: var(--color-text-aside);
+  color: var(--color-sources);
   font-weight: normal;
 }
 #tsd-search.has-focus {
-  background-color: var(--color-panel-divider);
+  background-color: var(--color-comment-tag);
 }
 #tsd-search.has-focus .field input {
   top: 0;
@@ -2375,13 +2324,14 @@ footer .tsd-legend {
 }
 
 .tsd-signature-symbol {
-  color: var(--color-text-aside);
   font-weight: normal;
+  color: var(--color-sources);
 }
 
 .tsd-signature-type {
   font-style: italic;
   font-weight: normal;
+  color: var(--color-sources);
 }
 
 .tsd-signatures {
@@ -2398,7 +2348,7 @@ footer .tsd-legend {
   border-top-width: 0;
 }
 .tsd-signatures .tsd-signature.current {
-  background-color: var(--color-panel-divider);
+  background-color: var(--color-comment-tag);
 }
 .tsd-signatures.active > .tsd-signature {
   cursor: pointer;
@@ -2472,11 +2422,10 @@ ul.tsd-type-parameters .tsd-comment {
 
 .tsd-sources {
   font-size: 14px;
-  color: var(--color-text-aside);
+  color: var(--color-sources);
   margin: 0 0 1em 0;
 }
 .tsd-sources a {
-  color: var(--color-text-aside);
   text-decoration: underline;
 }
 .tsd-sources ul, .tsd-sources p {
@@ -2494,13 +2443,13 @@ ul.tsd-type-parameters .tsd-comment {
   left: 0;
   width: 100%;
   height: 40px;
-  color: var(--color-toolbar-text);
-  background: var(--color-toolbar);
+  color: var(--color-menu-divider-focus);
+  background: var(--toolbar-color);
   border-bottom: 1px solid var(--color-panel-divider);
   transition: transform 0.3s linear;
 }
 .tsd-page-toolbar a {
-  color: var(--color-toolbar-text);
+  color: var(--toolbar-text-color);
   text-decoration: none;
 }
 .tsd-page-toolbar a.title {
