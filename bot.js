@@ -12,10 +12,13 @@ class TBot {
   updateCommands() {
     this.slimbot.on('message', (message) => {
       this.commands.forEach(({ name, callback }) => {
-        if (new RegExp(`^\/${name}\ `).test(message.text)) {
-          const params = message.text.replace(new RegExp(`^\/${name}\ `), '');
+        if (new RegExp(`^\/${name}(\ |$)`).test(message.text)) {
+          const params = message.text.replace(
+            new RegExp(`^\/${name}\(\ |$)`),
+            ''
+          );
           const parsedParams = params.split(/\s+/);
-          callback(...parsedParams);
+          callback(message, ...parsedParams);
         }
       });
     });
@@ -23,14 +26,21 @@ class TBot {
 
   addCommand(name, callback) {
     this.commands.push({ name, callback });
-    this.updateCommands();
   }
 
   run() {
+    this.updateCommands();
     this.slimbot.startPolling();
   }
 }
 
 const bot = new TBot(process.env.TELEGRAM_BOT_API_TOKEN);
-bot.addCommand('test', (name, age) => console.log(name, age));
+
+bot.addCommand('test', (message, ...args) => {
+  bot.slimbot.sendMessage(
+    message.chat.id,
+    args.reduce((res, cur) => res + ' ' + cur, '') || 'No Args'
+  );
+});
+bot.addCommand('hey', () => console.log('hey'));
 bot.run();
