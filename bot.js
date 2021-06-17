@@ -1,26 +1,27 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 import SlimBot from 'slimbot';
 
-class TBot {
+export default class TBot {
   constructor(...args) {
     this.slimbot = new SlimBot(...args);
     this.commands = [];
+    this.setup();
   }
 
-  updateCommands() {
-    this.slimbot.on('message', (message) => {
-      this.commands.forEach(({ name, callback }) => {
-        if (new RegExp(`^\/${name}(\ |$)`).test(message.text)) {
-          const params = message.text.replace(
-            new RegExp(`^\/${name}\(\ |$)`),
-            ''
-          );
-          const parsedParams = params.split(/\s+/);
-          callback(message, ...parsedParams);
-        }
-      });
+  setup() {
+    this.slimbot.on('message', (message) => this.onMessage(message));
+  }
+
+  onMessage(message) {
+    this.commands.forEach(({ name, callback }) => {
+      if (new RegExp(`^\/${name}(\ |$)`).test(message.text)) {
+        const params = message.text.replace(
+          new RegExp(`^\/${name}\(\ |$)`),
+          ''
+        );
+        let parsedParams = params.split(/\s+/);
+        if (parsedParams[0] === '') parsedParams = [];
+        callback(new ChatContext(message, this.slimbot), ...parsedParams);
+      }
     });
   }
 
@@ -29,18 +30,17 @@ class TBot {
   }
 
   run() {
-    this.updateCommands();
     this.slimbot.startPolling();
   }
 }
 
-const bot = new TBot(process.env.TELEGRAM_BOT_API_TOKEN);
+class ChatContext {
+  constructor(message, slimbot) {
+    this.message = message;
+    this.slimbot = slimbot;
+  }
 
-bot.addCommand('test', (message, ...args) => {
-  bot.slimbot.sendMessage(
-    message.chat.id,
-    args.reduce((res, cur) => res + ' ' + cur, '') || 'No Args'
-  );
-});
-bot.addCommand('hey', () => console.log('hey'));
-bot.run();
+  sendMessage(content) {
+    this.slimbot.sendMessage(this.message.chat.id, content);
+  }
+}
