@@ -1,13 +1,17 @@
 {
-  "name": "telegram-bot",
+  "name": "telegram-command-bot",
   "version": "0.0.1",
   "description": "",
   "main": "lib/index.js",
   "types": "lib",
   "scripts": {
-    "build": "npm run clearLib && tsc -p .",
-    "clearLib": "del-cli lib/*",
+    "build": "tsc -p .",
+    "build:clean": "npm run clear && npm run build && npm run createDocs",
+    "clear": "npm run clear:lib && npm run clear:docs",
+    "clear:lib": "del-cli lib/*",
+    "clear:docs": "del-cli docs/*",
     "watch": "tsc -p . --watch",
+    "createDocs": "npx typedoc --out docs src --plugin none",
     "start": "nodemon lib/example.js"
   },
   "keywords": [],
@@ -17,7 +21,9 @@
     "@types/node-telegram-bot-api": "^0.51.1",
     "del-cli": "^4.0.0",
     "dotenv": "^10.0.0",
-    "typescript": "^4.3.3"
+    "typedoc": "^0.20.37",
+    "typedoc-plugin-markdown": "^3.9.0",
+    "typescript": "^4.2.2"
   },
   "dependencies": {
     "node-telegram-bot-api": "^0.53.0"
